@@ -4,12 +4,14 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.assertThrows
 import java.time.LocalDateTime
+import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
 
 class TodoTest {
 
     @Test
     fun `create todo with valid data`() {
-        val todo = Todo(title = "Test Todo")
+        val todo = Todo.create(title = "Test Todo")
         
         assertNotNull(todo.id)
         assertEquals("Test Todo", todo.title)
@@ -20,7 +22,7 @@ class TodoTest {
 
     @Test
     fun `toggle completion changes status`() {
-        val todo = Todo(title = "Test Todo")
+        val todo = Todo.create(title = "Test Todo")
         val toggledTodo = todo.toggleCompletion()
         
         assertTrue(toggledTodo.isCompleted)
@@ -32,7 +34,7 @@ class TodoTest {
         val description = "Test description"
         val dueDate = LocalDateTime.now().plusDays(1)
         
-        val todo = Todo(
+        val todo = Todo.create(
             title = "Complete Project", 
             description = description,
             priority = Todo.Priority.HIGH,
@@ -48,8 +50,35 @@ class TodoTest {
     @Test
     fun `blank title throws exception`() {
         assertThrows<IllegalArgumentException> {
-            Todo(title = "")
+            Todo.create(title = "")
         }
+    }
+
+    @Test
+    fun `throw exception for title longer than 100 characters`() {
+        val longTitle = "a".repeat(101)
+        assertThrows<IllegalArgumentException> {
+            Todo.create(title = longTitle)
+        }
+    }
+
+    @Test
+    fun `throw exception for description longer than 500 characters`() {
+        val longDescription = "a".repeat(501)
+        assertThrows<IllegalArgumentException> {
+            Todo.create(
+                title = "Valid Title", 
+                description = longDescription
+            )
+        }
+    }
+
+    @Test
+    fun `allow null description`() {
+        val todo = Todo.create(title = "Task with no description")
+        
+        assertNotNull(todo)
+        assertEquals(null, todo.description)
     }
 
     @Test
@@ -57,7 +86,7 @@ class TodoTest {
         val pastDate = LocalDateTime.now().minusDays(1)
         
         assertThrows<IllegalArgumentException> {
-            Todo(
+            Todo.create(
                 title = "Test Todo", 
                 dueDate = pastDate
             )
