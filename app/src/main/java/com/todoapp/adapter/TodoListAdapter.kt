@@ -8,13 +8,13 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.todoapp.R
-import com.todoapp.model.Todo
+import com.example.todoapp.R
+import com.example.todoapp.data.TodoItem
 
 class TodoListAdapter(
-    private val onItemClick: (Todo) -> Unit,
-    private val onCompletionToggle: (Todo, Boolean) -> Unit
-) : ListAdapter<Todo, TodoListAdapter.TodoViewHolder>(TodoDiffCallback()) {
+    private val onItemClick: (TodoItem) -> Unit,
+    private val onCompletionToggle: (TodoItem, Boolean) -> Unit
+) : ListAdapter<TodoItem, TodoListAdapter.TodoViewHolder>(TodoDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -28,31 +28,33 @@ class TodoListAdapter(
 
     class TodoViewHolder(
         itemView: View,
-        private val onItemClick: (Todo) -> Unit,
-        private val onCompletionToggle: (Todo, Boolean) -> Unit
+        private val onItemClick: (TodoItem) -> Unit,
+        private val onCompletionToggle: (TodoItem, Boolean) -> Unit
     ) : RecyclerView.ViewHolder(itemView) {
         private val titleTextView: TextView = itemView.findViewById(R.id.todo_title)
         private val completedCheckBox: CheckBox = itemView.findViewById(R.id.todo_completed_checkbox)
+        private val descriptionTextView: TextView = itemView.findViewById(R.id.todo_description)
 
-        fun bind(todo: Todo) {
-            titleTextView.text = todo.title
-            completedCheckBox.isChecked = todo.isCompleted
+        fun bind(todoItem: TodoItem) {
+            titleTextView.text = todoItem.title
+            completedCheckBox.isChecked = todoItem.isCompleted
+            descriptionTextView.text = todoItem.description ?: ""
 
-            itemView.setOnClickListener { onItemClick(todo) }
+            itemView.setOnClickListener { onItemClick(todoItem) }
 
             completedCheckBox.setOnCheckedChangeListener { _, isChecked ->
-                onCompletionToggle(todo, isChecked)
+                onCompletionToggle(todoItem, isChecked)
             }
         }
     }
 
     // DiffUtil for efficient list updates
-    class TodoDiffCallback : DiffUtil.ItemCallback<Todo>() {
-        override fun areItemsTheSame(oldItem: Todo, newItem: Todo): Boolean {
+    class TodoDiffCallback : DiffUtil.ItemCallback<TodoItem>() {
+        override fun areItemsTheSame(oldItem: TodoItem, newItem: TodoItem): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: Todo, newItem: Todo): Boolean {
+        override fun areContentsTheSame(oldItem: TodoItem, newItem: TodoItem): Boolean {
             return oldItem == newItem
         }
     }

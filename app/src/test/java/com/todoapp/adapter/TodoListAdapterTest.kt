@@ -2,13 +2,12 @@ package com.todoapp.adapter
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.todoapp.R
-import com.todoapp.model.Todo
+import com.example.todoapp.R
+import com.example.todoapp.data.TodoItem
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
@@ -30,8 +29,8 @@ class TodoListAdapterTest {
     @Test
     fun testAdapterItemCount() {
         val todos = listOf(
-            Todo(1, "Test Todo 1"),
-            Todo(2, "Test Todo 2")
+            TodoItem(1, "Test Todo 1"),
+            TodoItem(2, "Test Todo 2")
         )
         adapter.submitList(todos)
         assertEquals(2, adapter.itemCount)
@@ -39,18 +38,18 @@ class TodoListAdapterTest {
 
     @Test
     fun testTodoCompletionToggle() {
-        var toggledTodo: Todo? = null
+        var toggledTodo: TodoItem? = null
         var toggledStatus: Boolean? = null
 
         adapter = TodoListAdapter(
             onItemClick = {},
-            onCompletionToggle = { todo, isCompleted ->
-                toggledTodo = todo
+            onCompletionToggle = { todoItem, isCompleted ->
+                toggledTodo = todoItem
                 toggledStatus = isCompleted
             }
         )
 
-        val todo = Todo(1, "Test Todo", isCompleted = false)
+        val todo = TodoItem(1, "Test Todo", isCompleted = false)
         adapter.submitList(listOf(todo))
 
         val viewHolder = adapter.onCreateViewHolder(
