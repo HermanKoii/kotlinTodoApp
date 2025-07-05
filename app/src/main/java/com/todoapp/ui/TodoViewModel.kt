@@ -3,44 +3,44 @@ package com.todoapp.ui
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.todoapp.data.Todo
+import com.todoapp.model.TodoItem
 
 class TodoViewModel : ViewModel() {
     // Mutable list of todo items
-    private val _todoItems = MutableLiveData<List<Todo>>(emptyList())
-    val todoItems: LiveData<List<Todo>> = _todoItems
+    private val _todoItems = MutableLiveData<List<TodoItem>>(emptyList())
+    val todoItems: LiveData<List<TodoItem>> = _todoItems
 
     // Add a new todo item
-    fun addTodo(todo: Todo) {
+    fun addTodo(todoItem: TodoItem) {
         val currentList = _todoItems.value?.toMutableList() ?: mutableListOf()
-        currentList.add(todo)
+        currentList.add(todoItem)
         _todoItems.value = currentList
     }
 
     // Update an existing todo item
-    fun updateTodo(updatedTodo: Todo) {
+    fun updateTodo(updatedTodoItem: TodoItem) {
         val currentList = _todoItems.value?.toMutableList() ?: return
-        val index = currentList.indexOfFirst { it.id == updatedTodo.id }
+        val index = currentList.indexOfFirst { it.id == updatedTodoItem.id }
         if (index != -1) {
-            currentList[index] = updatedTodo
+            currentList[index] = updatedTodoItem
             _todoItems.value = currentList
         }
     }
 
     // Delete a todo item
-    fun deleteTodo(todo: Todo) {
+    fun deleteTodo(todoItem: TodoItem) {
         val currentList = _todoItems.value?.toMutableList() ?: return
-        currentList.removeAll { it.id == todo.id }
+        currentList.removeAll { it.id == todoItem.id }
         _todoItems.value = currentList
     }
 
     // Toggle todo completion status
-    fun toggleTodoCompletion(todo: Todo) {
+    fun toggleTodoCompletion(todoItem: TodoItem) {
         val currentList = _todoItems.value?.toMutableList() ?: return
-        val index = currentList.indexOfFirst { it.id == todo.id }
+        val index = currentList.indexOfFirst { it.id == todoItem.id }
         if (index != -1) {
-            val updatedTodo = currentList[index].copy(isCompleted = !currentList[index].isCompleted)
-            currentList[index] = updatedTodo
+            val updatedTodoItem = currentList[index].copy(isCompleted = !currentList[index].isCompleted)
+            currentList[index] = updatedTodoItem
             _todoItems.value = currentList
         }
     }
