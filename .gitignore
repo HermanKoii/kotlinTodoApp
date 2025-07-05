@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Built application files
 *.apk
 *.aar
@@ -80,3 +81,33 @@ lint/reports/
 
 # Android Profiling
 *.hprof
+=======
+# Android Studio
+*.iml
+.gradle/
+build/
+local.properties
+.idea/
+
+# Compiled files
+*.class
+*.dex
+*.apk
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Kotlin/Java
+*.jar
+*.war
+
+# Other directories
+node_modules/
+captures/
+.externalNativeBuild/
+.cxx/
+>>>>>>> pr-3-Santix1234-kotlinTodoApp
