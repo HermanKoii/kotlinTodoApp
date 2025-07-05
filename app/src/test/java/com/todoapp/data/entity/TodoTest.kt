@@ -1,5 +1,6 @@
 package com.todoapp.data.entity
 
+import com.example.todoapp.data.model.TodoItem
 import org.junit.Test
 import java.time.LocalDateTime
 import kotlin.test.assertEquals
@@ -10,7 +11,7 @@ class TodoTest {
 
     @Test
     fun `create todo with valid data`() {
-        val todo = Todo(
+        val todo = TodoItem(
             title = "Test Todo",
             description = "Test description"
         )
@@ -25,7 +26,7 @@ class TodoTest {
     @Test
     fun `create todo with all properties`() {
         val dueDate = LocalDateTime.now().plusDays(1)
-        val todo = Todo(
+        val todo = TodoItem(
             title = "Complete project",
             description = "Finish the todo app implementation",
             isCompleted = true,
@@ -41,7 +42,7 @@ class TodoTest {
     @Test
     fun `fail to create todo with blank title`() {
         assertFailsWith<IllegalArgumentException> {
-            Todo(title = "")
+            TodoItem(title = "")
         }
     }
 
@@ -49,7 +50,7 @@ class TodoTest {
     fun `fail to create todo with title exceeding 100 characters`() {
         val longTitle = "a".repeat(101)
         assertFailsWith<IllegalArgumentException> {
-            Todo(title = longTitle)
+            TodoItem(title = longTitle)
         }
     }
 
@@ -57,7 +58,7 @@ class TodoTest {
     fun `fail to create todo with description exceeding 500 characters`() {
         val longDescription = "a".repeat(501)
         assertFailsWith<IllegalArgumentException> {
-            Todo(
+            TodoItem(
                 title = "Valid Title",
                 description = longDescription
             )
