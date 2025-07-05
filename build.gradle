@@ -12,5 +12,5 @@ repositories {
 }
 
 test {
-    useJUnit()
+    useJUnitPlatform()  // Added from Kotlin DSL version
 }

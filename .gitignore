@@ -1,4 +1,5 @@
 # Android Studio
+<<<<<<< HEAD
 .idea/
 *.iml
 .gradle/
@@ -29,6 +30,22 @@ local.properties
 .mtj.tmp/
 
 # Package Files
+=======
+*.iml
+.gradle
+/local.properties
+/.idea/
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+
+# Kotlin and Java
+*.class
+*.log
+*.ctxt
+>>>>>>> pr-2-Ralfmal-kotlinTodoApp
 *.jar
 *.war
 *.nar
@@ -37,5 +54,19 @@ local.properties
 *.tar.gz
 *.rar
 
+<<<<<<< HEAD
 # virtual machine crash logs
 hs_err_pid*
+=======
+# Dependency directories
+node_modules/
+kotlin-js-store/
+
+# Gradle
+.gradle/
+build/
+
+# Miscellaneous
+.env
+__pycache__/
+>>>>>>> pr-2-Ralfmal-kotlinTodoApp
