@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todoapp.R
-import com.example.todoapp.data.model.Todo
+import com.example.todoapp.data.entity.TodoItem
 import com.example.todoapp.databinding.ItemTodoBinding
 import com.example.todoapp.ui.viewmodel.TodoViewModel
 
@@ -20,71 +20,36 @@ import com.example.todoapp.ui.viewmodel.TodoViewModel
 class TodoListAdapter(
     private val context: Context,
     private val viewModel: TodoViewModel,
-    private var todoList: List<Todo>
+    private var todoList: List<TodoItem>
 ) : RecyclerView.Adapter<TodoListAdapter.TodoViewHolder>() {
 
     /**
      * Shows a confirmation dialog before deleting a Todo item
      * 
-     * @param todo The Todo item to be deleted
+     * @param todoItem The Todo item to be deleted
      */
-    private fun showDeleteConfirmationDialog(todo: Todo) {
+    private fun showDeleteConfirmationDialog(todoItem: TodoItem) {
         AlertDialog.Builder(context)
             .setTitle(R.string.delete_todo_title)
             .setMessage(R.string.delete_todo_message)
-            .setPositiveButton(R.string.delete) { dialog, _ ->
-                // Confirm deletion
-                viewModel.deleteTodo(todo)
-                dialog.dismiss()
-            }
-            .setNegativeButton(R.string.cancel) { dialog, _ ->
-                // Cancel deletion
-                dialog.dismiss()
-            }
-            .create()
-            .show()
-    }
+            .setPositiveButton(R.string.delete) { dialog, _ ->\n                // Confirm deletion
+                viewModel.deleteTodo(todoItem)
+                dialog.dismiss()\n            }
+            .setNegativeButton(R.string.cancel) { dialog, _ ->\n                // Cancel deletion
+                dialog.dismiss()\n            }
+            .create()\n            .show()\n    }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoViewHolder {
-        val binding = ItemTodoBinding.inflate(
-            LayoutInflater.from(parent.context), 
-            parent, 
-            false
-        )
-        return TodoViewHolder(binding)
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoViewHolder {\n        val binding = ItemTodoBinding.inflate(\n            LayoutInflater.from(parent.context), \n            parent, \n            false\n        )\n        return TodoViewHolder(binding)\n    }
 
-    override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
-        val todo = todoList[position]
-        holder.bind(todo)
-    }
+    override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {\n        val todo = todoList[position]\n        holder.bind(todo)\n    }
 
     override fun getItemCount(): Int = todoList.size
 
-    inner class TodoViewHolder(private val binding: ItemTodoBinding) : 
-        RecyclerView.ViewHolder(binding.root) {
-        
-        fun bind(todo: Todo) {
-            binding.apply {
-                // Set todo details
-                todoTitle.text = todo.title
-                todoDescription.text = todo.description
-
-                // Delete button click listener with confirmation dialog
-                deleteButton.setOnClickListener {
-                    showDeleteConfirmationDialog(todo)
-                }
-            }
-        }
-    }
+    inner class TodoViewHolder(private val binding: ItemTodoBinding) : \n        RecyclerView.ViewHolder(binding.root) {\n        \n        fun bind(todoItem: TodoItem) {\n            binding.apply {\n                // Set todo details\n                todoTitle.text = todoItem.title\n                todoDescription.text = todoItem.description\n\n                // Delete button click listener with confirmation dialog\n                deleteButton.setOnClickListener {\n                    showDeleteConfirmationDialog(todoItem)\n                }\n            }\n        }\n    }
 
     /**
      * Update the list of Todo items and notify the adapter
      * 
      * @param newList New list of Todo items
      */
-    fun updateList(newList: List<Todo>) {
-        todoList = newList
-        notifyDataSetChanged()
-    }
-}
+    fun updateList(newList: List<TodoItem>) {\n        todoList = newList\n        notifyDataSetChanged()\n    }\n}
