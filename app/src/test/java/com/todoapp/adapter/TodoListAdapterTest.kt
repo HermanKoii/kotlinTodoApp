@@ -12,6 +12,7 @@ import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
+import org.mockito.Mockito.*
 
 @RunWith(RobolectricTestRunner::class)
 class TodoListAdapterTest {
@@ -21,10 +22,6 @@ class TodoListAdapterTest {
     @Before
     fun setup() {
         MockitoAnnotations.openMocks(this)
-        adapter = TodoListAdapter(
-            onItemClick = {},
-            onCompletionToggle = { _, _ -> }
-        )
     }
 
     @Test
@@ -33,21 +30,24 @@ class TodoListAdapterTest {
             Todo(1, "Test Todo 1"),
             Todo(2, "Test Todo 2")
         )
+        
+        adapter = TodoListAdapter(
+            onItemClick = {},
+            onCompletionToggle = { _, _ -> }
+        )
+        
         adapter.submitList(todos)
         assertEquals(2, adapter.itemCount)
     }
 
     @Test
     fun testTodoCompletionToggle() {
-        var toggledTodo: Todo? = null
-        var toggledStatus: Boolean? = null
-
+        // Mock the callback to verify interactions
+        val mockOnCompletionToggle: (Todo, Boolean) -> Unit = mock()
+        
         adapter = TodoListAdapter(
             onItemClick = {},
-            onCompletionToggle = { todo, isCompleted ->
-                toggledTodo = todo
-                toggledStatus = isCompleted
-            }
+            onCompletionToggle = mockOnCompletionToggle
         )
 
         val todo = Todo(1, "Test Todo", isCompleted = false)
@@ -58,10 +58,11 @@ class TodoListAdapterTest {
             0
         )
 
+        // Simulate checkbox state change
         val checkBox = viewHolder.itemView.findViewById<View>(R.id.todo_completed_checkbox)
         checkBox.performClick()
 
-        assertEquals(todo, toggledTodo)
-        assertEquals(true, toggledStatus)
+        // Verify the completion toggle callback was called with correct parameters
+        verify(mockOnCompletionToggle).invoke(todo, true)
     }
 }
