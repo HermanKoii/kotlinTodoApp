@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todoapp.R
-import com.example.todoapp.data.model.Todo
+import com.example.todoapp.data.entity.TodoItem
 import com.example.todoapp.databinding.ItemTodoBinding
 import com.example.todoapp.ui.viewmodel.TodoViewModel
 
@@ -20,7 +20,7 @@ import com.example.todoapp.ui.viewmodel.TodoViewModel
 class TodoListAdapter(
     private val context: Context,
     private val viewModel: TodoViewModel,
-    private var todoList: List<Todo>
+    private var todoList: List<TodoItem>
 ) : RecyclerView.Adapter<TodoListAdapter.TodoViewHolder>() {
 
     /**
@@ -28,7 +28,7 @@ class TodoListAdapter(
      * 
      * @param todo The Todo item to be deleted
      */
-    private fun showDeleteConfirmationDialog(todo: Todo) {
+    private fun showDeleteConfirmationDialog(todo: TodoItem) {
         AlertDialog.Builder(context)
             .setTitle(R.string.delete_todo_title)
             .setMessage(R.string.delete_todo_message)
@@ -64,7 +64,7 @@ class TodoListAdapter(
     inner class TodoViewHolder(private val binding: ItemTodoBinding) : 
         RecyclerView.ViewHolder(binding.root) {
         
-        fun bind(todo: Todo) {
+        fun bind(todo: TodoItem) {
             binding.apply {
                 // Set todo details
                 todoTitle.text = todo.title
@@ -83,7 +83,7 @@ class TodoListAdapter(
      * 
      * @param newList New list of Todo items
      */
-    fun updateList(newList: List<Todo>) {
+    fun updateList(newList: List<TodoItem>) {
         todoList = newList
         notifyDataSetChanged()
     }
