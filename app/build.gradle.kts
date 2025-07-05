@@ -20,6 +20,12 @@ android {
     buildFeatures {
         viewBinding = true
     }
+
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+        }
+    }
 }
 
 dependencies {
@@ -36,6 +42,7 @@ dependencies {
     testImplementation("org.robolectric:robolectric:4.9")
     testImplementation("org.mockito:mockito-core:4.8.0")
     testImplementation("androidx.test:core:1.5.0")
+    testImplementation("androidx.test.ext:junit:1.1.5")
     
     // Android Testing
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
@@ -46,4 +53,7 @@ tasks.withType<Test> {
     configure<JacocoTaskExtension> {
         isEnabled = true
     }
+    
+    // Ensure tests run with Robolectric
+    useJUnitPlatform()
 }
