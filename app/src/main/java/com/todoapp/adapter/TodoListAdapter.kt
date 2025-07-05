@@ -41,7 +41,9 @@ class TodoListAdapter(
             itemView.setOnClickListener { onItemClick(todo) }
 
             completedCheckBox.setOnCheckedChangeListener { _, isChecked ->
-                onCompletionToggle(todo, isChecked)
+                // Create a new Todo with updated completion status
+                val updatedTodo = todo.copy(isCompleted = isChecked)
+                onCompletionToggle(updatedTodo, isChecked)
             }
         }
     }

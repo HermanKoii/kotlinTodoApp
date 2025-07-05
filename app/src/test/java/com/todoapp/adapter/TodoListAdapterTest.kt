@@ -8,7 +8,6 @@ import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
@@ -59,9 +58,27 @@ class TodoListAdapterTest {
         )
 
         val checkBox = viewHolder.itemView.findViewById<View>(R.id.todo_completed_checkbox)
-        checkBox.performClick()
+        
+        // Simulate checkbox state change
+        checkBox.isChecked = true
+        checkBox.callOnClick()
 
-        assertEquals(todo, toggledTodo)
+        assertEquals(todo.id, toggledTodo?.id)
         assertEquals(true, toggledStatus)
+    }
+
+    @Test
+    fun testTodoItemCreation() {
+        val todo = Todo(
+            id = 1,
+            title = "Test Todo",
+            description = "Test Description",
+            isCompleted = false
+        )
+
+        assertEquals(1, todo.id)
+        assertEquals("Test Todo", todo.title)
+        assertEquals("Test Description", todo.description)
+        assertFalse(todo.isCompleted)
     }
 }
