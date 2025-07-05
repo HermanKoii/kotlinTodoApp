@@ -5,13 +5,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.todoapp.R
-import com.todoapp.data.Todo
 import com.todoapp.databinding.ActivityMainBinding
+import com.todoapp.model.TodoItem
+import java.util.Date
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var todoViewModel: TodoViewModel
-    private lateinit var todoAdapter: TodoAdapter
+    private lateinit var todoListAdapter: TodoListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,16 +29,17 @@ class MainActivity : AppCompatActivity() {
 
         // Observe todo items and update adapter
         todoViewModel.todoItems.observe(this) { todos ->
-            todoAdapter.submitList(todos)
+            todoListAdapter.submitList(todos)
         }
 
         // Setup Add Todo button
         binding.addTodoButton.setOnClickListener {
             val todoText = binding.todoEditText.text.toString().trim()
             if (todoText.isNotEmpty()) {
-                val newTodo = Todo(
+                val newTodo = TodoItem(
                     id = System.currentTimeMillis(), // Unique ID
                     title = todoText,
+                    dueDate = Date(), // Current date
                     isCompleted = false
                 )
                 todoViewModel.addTodo(newTodo)
@@ -47,22 +49,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView() {
-        todoAdapter = TodoAdapter(
+        todoListAdapter = TodoListAdapter(
             onItemClick = { todo -> 
-                // Edit todo - open edit dialog or navigate to edit screen
-                todoViewModel.updateTodo(todo.copy(title = todo.title + " (edited)"))
+                // Edit todo - for now, just print or log
+                println("Clicked todo: $todo")
             },
-            onDeleteClick = { todo ->
-                todoViewModel.deleteTodo(todo)
-            },
-            onCompleteToggle = { todo ->
+            onCompletionToggle = { todo ->
                 todoViewModel.toggleTodoCompletion(todo)
             }
         )
 
         binding.todoRecyclerView.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
-            adapter = todoAdapter
+            adapter = todoListAdapter
         }
     }
 }
