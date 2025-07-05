@@ -1,3 +1,5 @@
+// DEPRECATED: Replaced by TodoItem in com.example.todoapp.data.model
+// This file is kept for historical reference and will be removed in future refactoring
 package com.todoapp.data.entity
 
 import androidx.room.ColumnInfo
@@ -6,15 +8,9 @@ import androidx.room.PrimaryKey
 import java.time.LocalDateTime
 
 /**
- * Room database entity representing a Todo item.
- * 
- * @property id Unique identifier for the Todo item
- * @property title Title of the Todo item
- * @property description Detailed description of the Todo item
- * @property isCompleted Indicates whether the Todo item is completed
- * @property createdAt Timestamp of when the Todo item was created
- * @property dueDate Optional due date for the Todo item
+ * @deprecated Use TodoItem from com.example.todoapp.data.model instead
  */
+@Deprecated("Use TodoItem from com.example.todoapp.data.model package")
 @Entity(tableName = "todos")
 data class Todo(
     @PrimaryKey(autoGenerate = true)
@@ -35,16 +31,8 @@ data class Todo(
     @ColumnInfo(name = "due_date")
     val dueDate: LocalDateTime? = null
 ) {
-    /**
-     * Validates the Todo item properties.
-     * 
-     * @throws IllegalArgumentException if validation fails
-     */
     init {
         require(title.isNotBlank()) { "Title cannot be blank" }
         require(title.length <= 100) { "Title cannot exceed 100 characters" }
         description?.let {
-            require(it.length <= 500) { "Description cannot exceed 500 characters" }
-        }
-    }
-}
+            require(it.length <= 500) { "Description cannot exceed 500 characters\" }\n        }\n    }\n}

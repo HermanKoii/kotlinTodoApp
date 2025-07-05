@@ -1,19 +1,30 @@
 plugins {
     id("com.android.application")
+<<<<<<< HEAD
     id("org.jetbrains.kotlin.android")
+=======
+    id("kotlin-android")
+>>>>>>> pr-7-Ralfmal-kotlinTodoApp
     id("kotlin-kapt")
 }
 
 android {
+<<<<<<< HEAD
     namespace = "com.todoapp"
     compileSdk = 33
 
     defaultConfig {
         applicationId = "com.todoapp"
+=======
+    compileSdk = 33
+    defaultConfig {
+        applicationId = "com.example.todoapp"
+>>>>>>> pr-7-Ralfmal-kotlinTodoApp
         minSdk = 24
         targetSdk = 33
         versionCode = 1
         versionName = "1.0"
+<<<<<<< HEAD
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -50,6 +61,22 @@ dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test:1.8.20")
     
     // Android testing
+=======
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+}
+
+dependencies {
+    // Room dependencies
+    val roomVersion = "2.5.1"
+    implementation("androidx.room:room-runtime:$roomVersion")
+    implementation("androidx.room:room-ktx:$roomVersion")
+    kapt("androidx.room:room-compiler:$roomVersion")
+
+    // Testing dependencies
+    testImplementation("androidx.room:room-testing:$roomVersion")
+    testImplementation("junit:junit:4.13.2")
+>>>>>>> pr-7-Ralfmal-kotlinTodoApp
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 }
