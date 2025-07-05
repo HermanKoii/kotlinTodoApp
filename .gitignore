@@ -2,13 +2,18 @@
 *.iml
 .gradle
 /local.properties
+<<<<<<< HEAD
 /.idea
+=======
+/.idea/
+>>>>>>> pr-3-gapcomputer-kotlinTodoApp
 .DS_Store
 /build
 /captures
 .externalNativeBuild
 .cxx
 
+<<<<<<< HEAD
 # Gradle files
 gradle/
 gradlew
@@ -38,3 +43,31 @@ local.properties
 
 # Android Profiling
 *.hprof
+=======
+# Kotlin and Android
+bin/
+out/
+*.class
+*.log
+
+# Dependency directories
+/node_modules
+/app/build/
+
+# Sensitive or local files
+local.properties
+.env
+
+# Temp files
+*.swp
+*~
+.tmp
+
+# Gradle
+.gradle/
+build/
+
+# Logs
+logs/
+*.log
+>>>>>>> pr-3-gapcomputer-kotlinTodoApp
