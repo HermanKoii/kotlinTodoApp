@@ -5,6 +5,7 @@ import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import com.example.todoapp.data.model.Todo
 import com.example.todoapp.ui.viewmodel.TodoViewModel
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -38,7 +39,7 @@ class TodoListAdapterTest {
 
     @Test
     fun `adapter initializes with correct item count`() {
-        assert(todoListAdapter.itemCount == 2)
+        assertEquals(2, todoListAdapter.itemCount)
     }
 
     @Test
@@ -47,11 +48,9 @@ class TodoListAdapterTest {
             Todo(3, "New Todo", "New Description", false)
         )
         todoListAdapter.updateList(newList)
-        assert(todoListAdapter.itemCount == 1)
+        assertEquals(1, todoListAdapter.itemCount)
     }
 
-    // Note: Direct dialog interaction testing is challenging
-    // This test ensures no exceptions are thrown when creating the dialog
     @Test
     fun `delete confirmation dialog can be created`() {
         val todo = Todo(1, "Test Todo", "Description", false)
