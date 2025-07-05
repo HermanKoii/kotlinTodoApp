@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId = "com.todoapp"
-        minSdk = 24
+        minSdk = 26  // Updated to support Java 8 time
         targetSdk = 33
         versionCode = 1
         versionName = "1.0"
@@ -30,6 +30,7 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
+        isCoreLibraryDesugaringEnabled = true  // Enable desugaring for Java 8 features
     }
     kotlinOptions {
         jvmTarget = "1.8"
@@ -43,6 +44,9 @@ dependencies {
     implementation("androidx.room:room-ktx:$roomVersion")
     kapt("androidx.room:room-compiler:$roomVersion")
     testImplementation("androidx.room:room-testing:$roomVersion")
+
+    // Java 8 time support
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")
 
     // Kotlin standard library
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.8.20")
