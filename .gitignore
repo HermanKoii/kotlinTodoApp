@@ -1,0 +1,106 @@
+# Android Studio
+*.iml
+.gradle
+/local.properties
+<<<<<<< HEAD
+/.idea/
+=======
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+>>>>>>> pr-7-Santix1234-kotlinTodoApp
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+<<<<<<< HEAD
+
+# Gradle files
+*.gradle
+/gradle/
+gradlew
+gradlew.bat
+
+# Compiled class files
+*.class
+
+# Log files
+*.log
+
+# Package Files
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# Virtual Machine crash logs
+hs_err_pid*
+
+# Android specific
+bin/
+gen/
+out/
+release/
+
+# Dependencies
+/node_modules
+/app/build/
+
+# Secrets and local configs
+*.env
+local.properties
+=======
+local.properties
+
+# Kotlin/Android
+bin/
+gen/
+out/
+*.class
+*.log
+*.dex
+*.apk
+
+# Dependency directories
+node_modules/
+jspm_packages/
+app/libs/
+
+# Gradle
+.gradle/
+build/
+
+# Testing
+app/build/
+app/test/
+app/androidTest/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Virtual environment
+venv/
+.env
+
+# IDE specific files
+.vscode/
+.idea/
+*.ipr
+*.iws
+
+# Misc
+*.swp
+*.swo
+.DS_Store
+>>>>>>> pr-7-Santix1234-kotlinTodoApp
