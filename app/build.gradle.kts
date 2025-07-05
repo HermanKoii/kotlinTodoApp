@@ -38,9 +38,11 @@ android {
 
 dependencies {
     // Room Database
-    implementation("androidx.room:room-runtime:2.5.1")
-    implementation("androidx.room:room-ktx:2.5.1")
-    kapt("androidx.room:room-compiler:2.5.1")
+    val roomVersion = "2.5.1"
+    implementation("androidx.room:room-runtime:$roomVersion")
+    implementation("androidx.room:room-ktx:$roomVersion")
+    kapt("androidx.room:room-compiler:$roomVersion")
+    testImplementation("androidx.room:room-testing:$roomVersion")
 
     // Kotlin standard library
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.8.20")
